@@ -1,1 +1,3 @@
 # cryptoExchange-testTask
+
+initial Commit
