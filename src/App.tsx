@@ -1,15 +1,11 @@
-// import { Routes, Route } from "react-router-dom";
+import { MainPage } from "./components/pages/MainPage";
+// import css from "./App.module.scss"
 
 function App() {
   return (
-    <>
-    <div style={{margin: "auto 0"}}>
-        <h1>EXCHANCHE_CRYPTO</h1>
+    <div>
+      <MainPage />
     </div>
-    </>
-    // <Routes>
-    //   <Route path="/" element={<ExchangePage />}></Route>
-    // </Routes>
   );
 }
 
