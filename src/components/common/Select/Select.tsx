@@ -3,18 +3,17 @@ import css from "./Select.module.scss";
 import { Option } from "./Option";
 import { IOption } from "../../../types/IOption";
 import cn from "classnames";
+import { Icon } from "../Icon";
 
 export interface ISelectProp {
   selected: IOption | null;
   options: IOption[];
-  placeholder?: string;
-  // mode?: 'rows' | 'cells';
-  onChange?: (selected: IOption["value"]) => void;
+  onChange?: (selected: IOption["ticker"]) => void;
   onClose?: () => void;
 }
 
 export const Select: FC<ISelectProp> = ({ ...props }) => {
-  const { options, placeholder, selected, onChange, onClose } = props;
+  const { options, selected, onChange, onClose } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -34,16 +33,14 @@ export const Select: FC<ISelectProp> = ({ ...props }) => {
     };
   }, [isOpen, onClose]);
 
-  const handleOptionClick = (value: IOption["value"]) => {
+  const handleOptionClick = (value: IOption["ticker"]) => {
     setIsOpen(false);
     onChange?.(value);
   };
+
   const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
     setIsOpen((prev) => !prev);
   };
-
-  console.log(isOpen, `isOpen`);
-  
 
   return (
     <div
@@ -52,9 +49,7 @@ export const Select: FC<ISelectProp> = ({ ...props }) => {
       })}
       ref={rootRef}
     >
-      {/* <div className={css.arrow}>
-        <p>^</p>
-      </div> */}
+      <div className={css.line}></div>
       <div
         className={cn(css.placeholder, {
           [css.open]: isOpen,
@@ -63,13 +58,15 @@ export const Select: FC<ISelectProp> = ({ ...props }) => {
         role="button"
         tabIndex={0}
       >
-        {selected?.title || placeholder}
+        <img src={selected?.image} alt={selected?.name}/>
+        <span>{selected?.ticker.toUpperCase()}</span>
+        <Icon name="arrow-down"/>
       </div>
       {isOpen && (
         <ul className={css.select}>
           {options.map((option) => (
             <Option
-              key={option.value}
+              key={`currency-${option.name}`}
               option={option}
               onClick={handleOptionClick}
             />

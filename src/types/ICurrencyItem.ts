@@ -1,10 +1,10 @@
-export interface ICurrencyItem {
+import { IOption } from "./IOption";
+export interface ICurrencyItem extends IOption {
     featured: boolean;
     hasExternalId: boolean;
-    image: string;
     isFiat: boolean;
     isStable: boolean;
-    name: string;
     supportsFixedRate: boolean;
-    ticker: string;
   };
+
+  

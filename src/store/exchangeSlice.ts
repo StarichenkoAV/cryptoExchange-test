@@ -4,15 +4,15 @@ import { IExchangeData } from "../types/IExchangeData";
 import * as Api from "../api/apiExchange";
 
 const defaultCurrencyState: ICurrencyState = {
-  availableCoins: [],
+  availableCurrencies: [],
   error: undefined,
   minAmount: "",
   resExchange: "",
   errorPairs: null,
 };
 
-export const getAvailableCoins = createAsyncThunk(
-  "coins/available",
+export const getAvailableCurrencies = createAsyncThunk(
+  "currency/available",
   async () => {
     const availableCoins = await Api.getListAvailableCurrencies();
     return availableCoins;
@@ -20,7 +20,7 @@ export const getAvailableCoins = createAsyncThunk(
 );
 
 export const getPairTicketCoins = createAsyncThunk(
-  "coins/min-amount",
+  "currency/min-amount",
   async (pairCoins: string) => {
     const minAmoutPair = await Api.getMinimalExchangeAmount(pairCoins);
     return minAmoutPair;
@@ -28,25 +28,25 @@ export const getPairTicketCoins = createAsyncThunk(
 );
 
 export const getExchangeData = createAsyncThunk(
-  "coins/exchange-amount",
+  "currency/exchange-amount",
   async (exchangeData: IExchangeData) => {
     const resExchange = await Api.getEstimatedExchangeAmount(exchangeData);
     return resExchange;
   }
 );
 
-export const mainSlice = createSlice({
-  name: "coins",
+export const exchangeSlice = createSlice({
+  name: "currency",
   initialState: defaultCurrencyState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAvailableCoins.fulfilled, (state, action) => {
-        const availableCoins = action.payload;
-        state.availableCoins = availableCoins;
+      .addCase(getAvailableCurrencies.fulfilled, (state, action) => {
+        const availableCurrencies = action.payload;
+        state.availableCurrencies = availableCurrencies;
         state.errorPairs = null;
       })
-      .addCase(getAvailableCoins.rejected, (state, action) => {
+      .addCase(getAvailableCurrencies.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(getPairTicketCoins.fulfilled, (state, action) => {
@@ -62,11 +62,10 @@ export const mainSlice = createSlice({
         state.resExchange = resExchange;
         state.errorPairs = null;
       })
-    
       .addCase(getExchangeData.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
 });
 
-export default mainSlice.reducer;
+export default exchangeSlice.reducer;

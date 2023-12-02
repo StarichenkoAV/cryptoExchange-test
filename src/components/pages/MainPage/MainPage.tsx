@@ -1,13 +1,23 @@
-import { FC, useState } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import css from "./MainPage.module.scss";
-// import { useAppDispatch } from "../../../store";
+import { useAppDispatch } from "../../../store";
 import { Button } from "../../common/Button";
 import { Input } from "../../common/Input";
 import { ExchangeInput } from "../../common/ExchangeInput";
 
+import { getAvailableCurrencies, getExchangeData, getPairTicketCoins } from "../../../store/exchangeSlice";
+import { Icon } from "../../common/Icon";
+
 export const MainPage: FC = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [ethAddress, setEthAddress] = useState<string>("");
+  
+  /* подгружаем в Стор массив доступных валют для отображения в компоненте Селекта */
+  useLayoutEffect(() => {
+    dispatch(getAvailableCurrencies());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
 
   return (
     <div className={css.component}>
@@ -15,6 +25,7 @@ export const MainPage: FC = () => {
       <h3 className={css.motto}>Exchange fast and easy</h3>
       <div className={css.inputBlocks}>
         <ExchangeInput />
+        <img src="swap.svg" alt="reverse" width="20" height="20" />
         <ExchangeInput />
       </div>
       <div className={css.submitBlock}>

@@ -1,4 +1,5 @@
 export interface IOption {
-  title: string;
-  value: string;
+  image: string;
+  name: string;
+  ticker: string;
 }

@@ -1,5 +1,7 @@
+import { ICurrencyItem } from "./ICurrencyItem";
+
 export interface ICurrencyState {
-    availableCoins: Array<string> ,
+    availableCurrencies: Array<ICurrencyItem> ,
     error?: string,
     minAmount: string,
     resExchange: string,

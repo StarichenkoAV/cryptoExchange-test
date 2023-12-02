@@ -1,36 +1,38 @@
 import { FC, MouseEventHandler } from "react";
 import css from "../Select.module.scss";
 import { IOption } from "../../../../types/IOption";
+import { Icon } from "../../Icon";
 
 export interface IOptionProps {
   option: IOption;
-  onClick: (value: IOption["value"]) => void;
+  onClick: (value: IOption["ticker"]) => void;
 }
 
 export const Option: FC<IOptionProps> = (props) => {
   const {
-    option: { value, title },
+    option: { image, name, ticker },
     onClick,
   } = props;
 
   const handleClick =
-    (clickedValue: IOption["value"]): MouseEventHandler<HTMLLIElement> =>
+    (clickedValue: IOption["ticker"]): MouseEventHandler<HTMLLIElement> =>
     () => {
       onClick(clickedValue);
     };
 
+    console.log(image);
+    
+
   return (
     <li
       className={css.option}
-      value={value}
-      onClick={handleClick(value)}
+      value={ticker}
+      onClick={handleClick(ticker)}
       tabIndex={0}
     >
-      <div>
-        <img src={""} alt=""></img>
-      </div>
-        <span>{"ETH"}</span>
-        <span>{"Ethetyum"}</span>
+        <img src={image} alt={name}/>
+        <span>{ticker.toUpperCase()}</span>
+        <span>{name}</span>
     </li>
   );
 };
