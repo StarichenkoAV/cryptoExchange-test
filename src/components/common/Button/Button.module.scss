@@ -1,0 +1,16 @@
+.componentWrapper {
+  background-color: #0eb3ff;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  min-width: 205px;
+  height: 50px;
+  font-size: 16px;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    vertical-align: middle;
+    background: #0495e0;
+  }
+}

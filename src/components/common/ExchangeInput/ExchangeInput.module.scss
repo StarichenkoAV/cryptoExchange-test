@@ -1,0 +1,26 @@
+.component {
+  display: flex;
+  position: relative;
+  width: 440px;
+
+  .input {
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    height: 50px;
+    border-radius: 5px;
+    font-weight: normal;
+    padding: 5px 15px;
+    border: solid 1px #E3EBEF;
+    background-color: #F6F7F8;
+    transition: all 0.3s;
+    z-index: 1;
+  }
+
+  .selectBlock {
+    position: absolute;
+    z-index: 2;
+    right: 1px;
+    top: 1px
+  }
+}

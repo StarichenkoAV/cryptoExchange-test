@@ -39,7 +39,34 @@ export const mainSlice = createSlice({
   name: "coins",
   initialState: defaultCurrencyState,
   reducers: {},
-
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAvailableCoins.fulfilled, (state, action) => {
+        const availableCoins = action.payload;
+        state.availableCoins = availableCoins;
+        state.errorPairs = null;
+      })
+      .addCase(getAvailableCoins.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(getPairTicketCoins.fulfilled, (state, action) => {
+        const minAmount = action.payload;
+        state.minAmount = minAmount;
+        state.errorPairs = null;
+      })
+      .addCase(getPairTicketCoins.rejected, (state, action) => {
+        state.errorPairs = "This pair is disabled now";
+      })
+      .addCase(getExchangeData.fulfilled, (state, action) => {
+        const resExchange = action.payload;
+        state.resExchange = resExchange;
+        state.errorPairs = null;
+      })
+    
+      .addCase(getExchangeData.rejected, (state, action) => {
+        state.error = action.error.message;
+      });
+  },
 });
 
 export default mainSlice.reducer;

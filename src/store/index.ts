@@ -1,12 +1,15 @@
-import "regenerator-runtime/runtime";
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducer";
+import mainSlice from "./mainSlice";
+import { useDispatch } from "react-redux";
 
 const store = configureStore({
-	reducer: rootReducer,
-});
+	reducer: {
+	  main: mainSlice,
+	},
+  });
 
-export type StoreStateType = ReturnType<typeof store.getState>;
-export type DispatchType = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export type RootState = ReturnType<typeof store.getState>;
 
 export default store;
