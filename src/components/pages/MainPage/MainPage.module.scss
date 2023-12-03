@@ -30,7 +30,7 @@
     color: #ef1405;
     display: flex;
     height: 23px;
-    justify-content: end;
+    justify-content: flex-end;
     padding-right: 12px;
     line-height: 23px;
   }
@@ -38,7 +38,7 @@
     color: #ef1405;
     display: flex;
     height: 23px;
-    justify-content: end;
+    justify-content: flex-end;
     line-height: 23px;
   }
   &BtnExchange {
@@ -88,7 +88,7 @@
 
   .submitBlock {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     margin-top: 32px;
     gap: 32px;
   }

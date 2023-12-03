@@ -6,14 +6,14 @@ import cn from "classnames";
 import { Icon } from "../Icon";
 
 export interface ISelectProp {
-  selected: IOption | null;
+  selected?: IOption;
   options: IOption[];
   onChange?: (selected: IOption["ticker"]) => void;
   onClose?: () => void;
 }
 
 export const Select: FC<ISelectProp> = ({ ...props }) => {
-  const { options, selected, onChange, onClose } = props;
+  const { options, selected, onChange, onClose  } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +66,7 @@ export const Select: FC<ISelectProp> = ({ ...props }) => {
         <ul className={css.select}>
           {options.map((option) => (
             <Option
-              key={`currency-${option.name}`}
+              key={`currency-${option.ticker}`}
               option={option}
               onClick={handleOptionClick}
             />

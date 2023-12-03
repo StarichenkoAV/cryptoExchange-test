@@ -1,8 +1,6 @@
 import { FC, MouseEventHandler } from "react";
 import css from "../Select.module.scss";
 import { IOption } from "../../../../types/IOption";
-import { Icon } from "../../Icon";
-
 export interface IOptionProps {
   option: IOption;
   onClick: (value: IOption["ticker"]) => void;
@@ -19,9 +17,6 @@ export const Option: FC<IOptionProps> = (props) => {
     () => {
       onClick(clickedValue);
     };
-
-    console.log(image);
-    
 
   return (
     <li

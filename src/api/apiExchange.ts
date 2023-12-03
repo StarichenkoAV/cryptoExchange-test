@@ -40,8 +40,9 @@ export const getMinimalExchangeAmount = async (pairCoins: string) => {
 export const getEstimatedExchangeAmount = async (
   exchangeData: IExchangeData
 ) => {
-  const { sendAmount, coinExchangeFrom, coinExchangeTo } = exchangeData;
-  const endpoint = `${API_ROOT_PATH}/${sendAmount}/${coinExchangeFrom}_${coinExchangeTo}?api_key=${API_KEY}`;
+  
+  const { currencyFrom, currencyTo, amountForExchange } = exchangeData;
+  const endpoint = `${API_ROOT_PATH}/exchange-amount/${amountForExchange}/${currencyFrom}_${currencyTo}?api_key=${API_KEY}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {

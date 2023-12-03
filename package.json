@@ -30,12 +30,7 @@
     "extends": [
       "react-app",
       "prettier"
-    ],
-    "parserOptions": {
-      "project": [
-        "tsconfig.json"
-      ]
-    }
+    ]
   },
   "browserslist": {
     "production": [
@@ -50,7 +45,9 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-prettier": "^8.5.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react-router-dom": "^5.3.3",
+    "eslint-config-prettier": "^9.1.0",
     "sass": "^1.58.3"
   }
 }

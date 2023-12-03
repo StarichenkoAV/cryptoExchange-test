@@ -31,6 +31,7 @@ export const getExchangeData = createAsyncThunk(
   "currency/exchange-amount",
   async (exchangeData: IExchangeData) => {
     const resExchange = await Api.getEstimatedExchangeAmount(exchangeData);
+    console.log(exchangeData, `resExchange`);
     return resExchange;
   }
 );

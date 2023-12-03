@@ -12,17 +12,25 @@ export interface IInputProp extends HTMLAttributes<HTMLInputElement> {
   value: string;
   onChangeValue?: (value: string) => void;
   width?: string;
+  label?: string;
 }
 
 export const Input: FC<IInputProp> = forwardRef<HTMLInputElement, IInputProp>(
   (
-    { disabled = false, onChangeValue, value = ``, width = ``, ...rest },
+    {
+      disabled = false,
+      onChangeValue,
+      value = ``,
+      width = ``,
+      label = ``,
+      ...rest
+    },
     inputRef
   ) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
       event.preventDefault();
       event.stopPropagation();
-      const value: string = event.target.value;      
+      const value: string = event.target.value;
       if (onChangeValue) {
         onChangeValue(value);
       }
@@ -39,6 +47,11 @@ export const Input: FC<IInputProp> = forwardRef<HTMLInputElement, IInputProp>(
         })}
         style={style}
       >
+        {Boolean(label) && (
+          <label htmlFor={label}>
+            {label}
+          </label>
+        )}
         <input
           type="text"
           className={css.input}

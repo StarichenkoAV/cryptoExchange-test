@@ -1,5 +1,5 @@
 export interface IExchangeData {
-    coinExchangeFrom: string;
-    coinExchangeTo: string;
-    sendAmount: string | undefined;
+  currencyFrom: string;
+  currencyTo: string;
+  amountForExchange: string | undefined;
   };
