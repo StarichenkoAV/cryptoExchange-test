@@ -5,14 +5,14 @@ import { IOption } from "../../../types/IOption";
 import cn from "classnames";
 import { Icon } from "../Icon";
 
-export interface ISelectProp {
+export interface ISelectProps {
   selected?: IOption;
   options: IOption[];
   onChange?: (selected: IOption["ticker"]) => void;
   onClose?: () => void;
 }
 
-export const Select: FC<ISelectProp> = ({ ...props }) => {
+export const Select: FC<ISelectProps> = ({ ...props }) => {
   const { options, selected, onChange, onClose  } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const rootRef = useRef<HTMLDivElement>(null);
