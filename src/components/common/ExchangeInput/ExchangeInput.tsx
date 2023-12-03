@@ -3,58 +3,28 @@ import css from "./ExchangeInput.module.scss";
 import { Select } from "../Select";
 import { useAppSelector } from "../../../hooks/useAppSelector";
 import { IOption } from "../../../types/IOption";
-import { EInputTypes } from "../../../types/EInputTypes";
-import { useGetExchangeData } from "../../../hooks/useGetExchangeData";
 
 export interface IExchangeInputProps {
-  inputType: EInputTypes;
+  inputValue: string;
+  setInput: (v: string) => void;
+  setCurrency: (v: string) => void;
 }
 
-export const ExchangeInput: FC<IExchangeInputProps> = ({ inputType }) => {
+export const ExchangeInput: FC<IExchangeInputProps> = ({ inputValue, setInput, setCurrency }) => {
   const [value, setValue] = useState<string>("");
-  const {
-    setCurrencyFrom,
-    setCurrencyTo,
-    setAmountForExchange,
-    setAmountResult,
-    amountForExchange,
-    currencyFrom,
-    currencyTo,
-  } = useGetExchangeData();
+
   const availableCurrencies = useAppSelector(
     (state) => state.exchange.availableCurrencies
   );
 
-  const totalAmount = useAppSelector((state) => state.exchange.resExchange);
-
-  const handleSelect = (option: string): void => {
+  const handleSelect = (option: string) => {
     setValue(option);
-    /* в зависимости от типа изменяемого инптуа меняем тип валюты 
-      для апи запроса
-    */
-    if (inputType === EInputTypes.INPUT_FROM) {
-      setCurrencyFrom(option);
-    } else if (inputType === EInputTypes.INPUT_TO) {
-      setCurrencyTo(option);
-    }
+    setCurrency(option)
   };
 
-  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    /* для левого инпута меняем данные для 
-      при запроса
-    */
-    if (inputType === EInputTypes.INPUT_FROM) {
-      setAmountForExchange(event.target.value);
-      /* в правый инпут выводим ответ из апи, который
-      хранится в сторе
-    */
-    } else if (inputType === EInputTypes.INPUT_TO) {
-      setAmountResult(totalAmount);
-    }
-  };
-
-  const inputValue =
-    inputType === EInputTypes.INPUT_FROM ? amountForExchange : totalAmount;
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value)
+  }
 
   const options: Array<IOption> = availableCurrencies.map((currency) => ({
     name: currency.name,
@@ -62,11 +32,7 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({ inputType }) => {
     ticker: currency.ticker,
   }));
 
-  const selected =
-    options.find((item) => item.ticker === value) ||
-    inputType === EInputTypes.INPUT_FROM
-      ? options.find((item) => item.ticker === currencyFrom)
-      : options.find((item) => item.ticker === currencyTo);
+  const selected = options.find((item) => item.ticker === value) || options[0];
 
   const selectProps = {
     options,
@@ -87,3 +53,4 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({ inputType }) => {
     </div>
   );
 };
+

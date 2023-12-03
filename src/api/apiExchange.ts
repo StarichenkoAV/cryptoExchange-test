@@ -30,7 +30,7 @@ export const getMinimalExchangeAmount = async (pairCoins: string) => {
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    
   }
   return data.minAmount;
 };
@@ -40,7 +40,6 @@ export const getMinimalExchangeAmount = async (pairCoins: string) => {
 export const getEstimatedExchangeAmount = async (
   exchangeData: IExchangeData
 ) => {
-  
   const { currencyFrom, currencyTo, amountForExchange } = exchangeData;
   const endpoint = `${API_ROOT_PATH}/exchange-amount/${amountForExchange}/${currencyFrom}_${currencyTo}?api_key=${API_KEY}`;
   const response = await fetch(endpoint, {
@@ -51,7 +50,7 @@ export const getEstimatedExchangeAmount = async (
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    
   }
   return data.estimatedAmount;
 };
