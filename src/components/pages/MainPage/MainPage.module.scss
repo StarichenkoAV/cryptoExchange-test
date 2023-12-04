@@ -5,41 +5,47 @@
   width: 100%;
 
   .inputBlocks {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     position: relative;
     gap: 20px;
+
+    .swapBtn {
+      width: 24px;
+      height: 24px;
+    }
   }
-  &TitleAdress {
-    padding: 32px 0 8px 0;
-  }
+
   .title {
     font-weight: 300;
     font-size: 50px;
     color: #282828;
     padding-bottom: 16px;
-    line-height: 120%;
+    line-height: 60px;
   }
-  .motto {
-    font-size: 1.25rem;
+  .smallTitle {
+    font-size: 20px;
     color: #282828;
     padding-bottom: 60px;
+  }
+
+  .buttonBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 31px;
+    gap: 8px;
   }
   .error {
     color: #ef1405;
     display: flex;
     height: 23px;
-    justify-content: flex-end;
-    padding-right: 12px;
+    justify-content: center;
+    max-width: 205px;
     line-height: 23px;
-  }
-  .errorMinAmount {
-    color: #ef1405;
-    display: flex;
-    height: 23px;
-    justify-content: flex-end;
-    line-height: 23px;
+    word-wrap: break-word;
   }
   .inputAddress {
     max-width: 723px;
@@ -52,65 +58,60 @@
 
   .submitBlock {
     display: flex;
-    align-items: flex-end;
     margin-top: 32px;
     gap: 32px;
+    align-items: flex-start;
   }
 }
 
-@media (max-width: 900px) {
-  .ExchangePage {
-    &Inputs {
-      display: flex;
-      flex-direction: column;
-      align-items: self-end;
-    }
-    &Title {
-      font-size: 40px;
-      font-weight: 300;
-    }
-    &UserAddress {
-      display: flex;
-      flex-direction: column;
-    }
-    &InputAddress {
+@media (max-width: 1050px) {
+  .component {
+    width: 80vw;
+    .inputAddress {
       width: 400px;
       padding: 0px;
     }
-    &BtnExchange {
-      width: 400px;
-      margin-left: 0;
-      margin-top: 16px;
-    }
-    &BtnReverse {
-      margin: 20px 0px 20px 0px;
-      transform: rotate(90deg);
-    }
-    &Error,
-    &ErrorMin {
+    .errorMinAmount {
       justify-content: center;
     }
   }
 }
-@media (max-width: 430px) {
-  .ExchangePage {
-    &InputAddress {
-      width: 326px;
-      padding: 0px;
+@media (max-width: 767px) {
+  .component {
+    width: 80vw;
+
+    .title {
+      font-weight: 250;
+      font-size: 32px;
+      padding-bottom: 16px;
+      line-height: 48px;
     }
-    &BtnExchange {
-      width: 326px;
+
+    .inputBlocks {
+      flex-direction: column;
+      .swapBtn {
+        align-self: flex-end;
+      }
+      .swapBtn {
+        transform: rotate(90deg);
+      }
     }
-    &Error,
-    &ErrorMin {
-      justify-content: center;
-    }
-  }
-}
-@media (max-width: 990px) {
-  .ExchangePage {
-    &Error {
-      padding-right: 0px;
+
+    .submitBlock {
+      flex-direction: column;
+      gap: 16px;
+
+      .buttonBlock {
+        margin: 0;
+        gap: 8px;
+        width: 100%;
+
+        .error {
+          width: 100%;
+          max-width: none;
+          justify-content: center;
+        }
+      }
     }
   }
 }

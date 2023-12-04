@@ -8,9 +8,15 @@ export interface IExchangeInputProps {
   inputValue: string;
   setInput: (v: string) => void;
   setCurrency: (v: string) => void;
+  readonlyInput?: boolean;
 }
 
-export const ExchangeInput: FC<IExchangeInputProps> = ({ inputValue, setInput, setCurrency }) => {
+export const ExchangeInput: FC<IExchangeInputProps> = ({
+  inputValue,
+  setInput,
+  setCurrency,
+  readonlyInput = false,
+}) => {
   const [value, setValue] = useState<string>("");
 
   const availableCurrencies = useAppSelector(
@@ -19,12 +25,12 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({ inputValue, setInput, s
 
   const handleSelect = (option: string) => {
     setValue(option);
-    setCurrency(option)
+    setCurrency(option);
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value)
-  }
+    setInput(e.target.value);
+  };
 
   const options: Array<IOption> = availableCurrencies.map((currency) => ({
     name: currency.name,
@@ -43,6 +49,8 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({ inputValue, setInput, s
   return (
     <div className={css.component}>
       <input
+        type="text"
+        readOnly={readonlyInput}
         value={inputValue}
         onChange={onChangeInput}
         className={css.input}
@@ -53,4 +61,3 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({ inputValue, setInput, s
     </div>
   );
 };
-

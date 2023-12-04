@@ -1,7 +1,7 @@
 import { API_KEY, API_ROOT_PATH } from "../constants";
 import { IExchangeData } from "../types/IExchangeData";
 
-/* List of available currencies */
+/* Получаем все доступные валюты */
 
 export const getListAvailableCurrencies = async () => {
   const endpoint = `${API_ROOT_PATH}/currencies?active=true`;
@@ -18,10 +18,10 @@ export const getListAvailableCurrencies = async () => {
   return data;
 };
 
-/* Minimal exchange amount */
+/* Получаем минимальную сумму к обмену для пары валют */
 
-export const getMinimalExchangeAmount = async (pairCoins: string) => {
-  const endpoint = `${API_ROOT_PATH}/min-amount/${pairCoins}?api_key=${API_KEY}`;
+export const getMinimalExchangeAmount = async (currencies: string) => {
+  const endpoint = `${API_ROOT_PATH}/min-amount/${currencies}?api_key=${API_KEY}`;
   const response = await fetch(endpoint, {
     method: "GET",
     headers: {
@@ -30,12 +30,12 @@ export const getMinimalExchangeAmount = async (pairCoins: string) => {
   });
   const data = await response.json();
   if (!response.ok) {
-    
+    return data.message;
   }
   return data.minAmount;
 };
 
-/* Estimated exchange amount */
+/* Получаем итоговую сумму для валюты на которую меняем */
 
 export const getEstimatedExchangeAmount = async (
   exchangeData: IExchangeData
@@ -50,7 +50,7 @@ export const getEstimatedExchangeAmount = async (
   });
   const data = await response.json();
   if (!response.ok) {
-    
+    return data.message;
   }
   return data.estimatedAmount;
 };

@@ -6,8 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from "./store"
 
-import "./scss/Reset.scss";
-import './index.scss';
+import "./scss/reset.scss";
+import './scss/common.scss';
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>

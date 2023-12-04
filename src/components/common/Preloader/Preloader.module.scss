@@ -1,0 +1,41 @@
+.component {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.isAbsolute {
+    height: 100%;
+    height: -webkit-fill-available;
+    position: absolute;
+    align-items: center;
+    z-index: 10;
+}
+
+.isFixed {
+    height: calc(100% - 114px);
+    top: 114px;
+    left: 0px;
+    position: fixed;
+    align-items: center;
+    z-index: 10;
+}
+
+.rotationAnimation {
+    animation-name: rotation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

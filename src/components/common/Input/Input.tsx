@@ -3,7 +3,6 @@ import {
   ChangeEvent,
   FC,
   HTMLAttributes,
-  forwardRef,
 } from "react";
 import css from "./Input.module.scss";
 import cn from "classnames";
@@ -15,7 +14,7 @@ export interface IInputProp extends HTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-export const Input: FC<IInputProp> = forwardRef<HTMLInputElement, IInputProp>(
+export const Input: FC<IInputProp> = 
   (
     {
       disabled = false,
@@ -25,7 +24,6 @@ export const Input: FC<IInputProp> = forwardRef<HTMLInputElement, IInputProp>(
       label = ``,
       ...rest
     },
-    inputRef
   ) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
       event.preventDefault();
@@ -58,9 +56,8 @@ export const Input: FC<IInputProp> = forwardRef<HTMLInputElement, IInputProp>(
           disabled={disabled}
           value={value}
           onChange={handleChange}
-          ref={inputRef}
         />
       </div>
     );
   }
-);
+

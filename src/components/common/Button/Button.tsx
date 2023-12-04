@@ -17,7 +17,7 @@ export const Button: FC<IButtonProp> = ({
         event.stopPropagation();
         !!onClick && onClick(event);
       }}
-      className={css.componentWrapper}
+      className={css.component}
       {...rest}
     >
       {children}

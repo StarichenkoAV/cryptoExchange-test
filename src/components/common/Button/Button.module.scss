@@ -1,4 +1,4 @@
-.componentWrapper {
+.component {
   background-color: #0eb3ff;
   border-radius: 5px;
   border: none;
@@ -12,5 +12,11 @@
   &:active {
     vertical-align: middle;
     background: #0495e0;
+  }
+}
+
+@media (max-width: 767px) {
+  .component {
+   width: 100%;
   }
 }
