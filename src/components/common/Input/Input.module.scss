@@ -24,18 +24,9 @@
     font-weight: normal;
     padding: 5px 15px;
     border: solid 1px #E3EBEF;
-    background-color: #F6F7F8;
-  
-    &[disabled] {
-      border-color: var(--veb-color-border);
-      // background-color: var(--veb-color-border);
-      cursor: not-allowed;
-      // opacity: var(--veb-disabled-opacity);
-    }
+    background-color: #F6F7F8;    
   }
 }
-
-
 
 @media (max-width: 990px) {
   .ExchangePageInput {

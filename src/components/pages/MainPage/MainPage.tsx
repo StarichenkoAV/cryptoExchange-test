@@ -1,27 +1,19 @@
-import { FC, useEffect, useLayoutEffect, useState } from "react";
-import css from "./MainPage.module.scss";
+import { FC, useLayoutEffect, useState } from "react";
 import { useAppDispatch } from "../../../store";
+import { useGetExchangeData } from "../../../hooks/useGetExchangeData";
+import { getAvailableCurrencies } from "../../../store/exchangeSlice";
+
 import { Button } from "../../common/Button";
 import { Input } from "../../common/Input";
 import { ExchangeInput } from "../../common/ExchangeInput";
-import swap from "../../../assets/img/swap.svg";
-
-import { getAvailableCurrencies } from "../../../store/exchangeSlice";
-import { useGetExchangeData } from "../../common/ExchangeInput/useGetExchangeData";
-import {
-  getEstimatedExchangeAmount,
-  getMinimalExchangeAmount,
-} from "../../../api/apiExchange";
-import { useAppSelector } from "../../../hooks/useAppSelector";
 import { Preloader } from "../../common/Preloader";
+
+import css from "./MainPage.module.scss";
+import swap from "../../../assets/img/swap.svg";
 
 export const MainPage: FC = () => {
   const dispatch = useAppDispatch();
   const [ethAddress, setEthAddress] = useState<string>("");
-
-  // const error = useAppSelector(
-  //   (state) => state.exchange.error
-  // );
 
   const {
     setCurrencyFrom,
@@ -33,6 +25,7 @@ export const MainPage: FC = () => {
     amountResult,
     isShowError,
     error,
+    isLoading,
   } = useGetExchangeData();
 
   /* подгружаем в Стор массив доступных валют для отображения в компоненте Селекта */
@@ -54,8 +47,11 @@ export const MainPage: FC = () => {
           inputValue={amountForExchange}
           setCurrency={setCurrencyFrom}
         />
-        {/* <Preloader /> */}
-        <img className={css.swapBtn} src={swap} alt="swap button" />
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <img className={css.swapBtn} src={swap} alt="swap button" />
+        )}
         <ExchangeInput
           setInput={setAmountResult}
           inputValue={amountResult}

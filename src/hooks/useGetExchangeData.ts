@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getEstimatedExchangeAmount,
   getMinimalExchangeAmount,
-} from "../../../api/apiExchange";
+} from "../api/apiExchange";
 
 export interface IUseGetExchangeDataResult {
   setCurrencyFrom: (currencyFrom: string) => void;
@@ -17,54 +17,64 @@ export interface IUseGetExchangeDataResult {
   currencyTo: string;
   isShowError: boolean;
   error: string;
+  isLoading: boolean;
 }
 
 export const useGetExchangeData = (): IUseGetExchangeDataResult => {
-
+  /* здесь храним тикеры валют */
   const [currencyFrom, setCurrencyFrom] = useState<string>(`btc`);
   const [currencyTo, setCurrencyTo] = useState<string>(`btc`);
+  /* здесь храним значения из инпутов */
   const [amountForExchange, setAmountForExchange] = useState<string>(``);
   const [amountResult, setAmountResult] = useState<string>(``);
+  /* обработка ошибок */
   const [isShowError, setIsShowError] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const [minAmount, setMinAmount] = useState<string>(``);
 
-  const errorHandler = (
-    amount: string = ``
-  ): void => {
+  const errorHandler = (amount: string = ``): void => {
     const message = amount
       ? `Введите сумму превышающюю ${amount}`
       : `this pair is disabled now`;
-      setError(message);
-      setIsShowError(true);
-      setAmountResult("-");
+    setError(message);
+    setIsShowError(true);
+    setAmountResult("-");
+    setIsLoading(false)
   };
 
+  /* получаем и записываем минимально возможную сумму */
   const updateMinAmount = async () => {
     setIsShowError(false);
+    setIsLoading(true)
     let response;
     if (currencyFrom && currencyTo) {
-      response = await getMinimalExchangeAmount(
-        `${currencyFrom}_${currencyTo}`
-      );
-    } else return;
+      const currencies = `${currencyFrom}_${currencyTo}`;
+      response = await getMinimalExchangeAmount(currencies);
+    } else{
+      setIsLoading(false)
+      return;
+    } 
     if (!response) {
-      errorHandler()
+      errorHandler();
       return;
     } else {
       setMinAmount(response);
       setAmountForExchange(response);
+      setIsLoading(false)
     }
   };
 
+  /* получаем и записываем итоговую сумму для правого инпута */
   const updateTotalAmount = async () => {
     setIsShowError(false);
+    setIsLoading(true)
     if (minAmount && amountForExchange && +minAmount > +amountForExchange) {
-      errorHandler(minAmount)
+      errorHandler(minAmount);
       return;
     }
-
     if (amountForExchange) {
       const response = await getEstimatedExchangeAmount({
         currencyFrom,
@@ -72,10 +82,11 @@ export const useGetExchangeData = (): IUseGetExchangeDataResult => {
         amountForExchange,
       });
       if (!response) {
-        errorHandler()
+        errorHandler();
         return;
       } else {
         setAmountResult(response);
+        setIsLoading(false)
       }
     }
   };
@@ -103,5 +114,6 @@ export const useGetExchangeData = (): IUseGetExchangeDataResult => {
     currencyTo,
     isShowError,
     error,
+    isLoading,
   };
 };

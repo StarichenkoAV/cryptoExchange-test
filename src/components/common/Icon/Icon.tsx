@@ -1,6 +1,4 @@
-import React, { FC } from "react";
-
-// import css from "./Icon.module.scss";
+import { FC } from "react";
 
 import IconsSvg from "../../../assets/img/icons.svg";
 

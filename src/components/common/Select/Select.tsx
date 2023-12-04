@@ -1,9 +1,11 @@
 import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
-import css from "./Select.module.scss";
+
 import { Option } from "./Option";
 import { IOption } from "../../../types/IOption";
-import cn from "classnames";
 import { Icon } from "../Icon";
+
+import css from "./Select.module.scss";
+import cn from "classnames";
 
 export interface ISelectProps {
   selected?: IOption;

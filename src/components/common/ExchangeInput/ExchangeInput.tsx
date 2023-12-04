@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
-import css from "./ExchangeInput.module.scss";
-import { Select } from "../Select";
 import { useAppSelector } from "../../../hooks/useAppSelector";
+import { FC, useState } from "react";
+import { Select } from "../Select";
 import { IOption } from "../../../types/IOption";
+import css from "./ExchangeInput.module.scss";
 
 export interface IExchangeInputProps {
   inputValue: string;
