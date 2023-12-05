@@ -8,6 +8,7 @@ import css from "./Input.module.scss";
 import cn from "classnames";
 export interface IInputProp extends HTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
+  readOnly?: boolean;
   value: string;
   onChangeValue?: (value: string) => void;
   width?: string;
@@ -18,6 +19,7 @@ export const Input: FC<IInputProp> =
   (
     {
       disabled = false,
+      readOnly = false,
       onChangeValue,
       value = ``,
       width = ``,
@@ -53,6 +55,7 @@ export const Input: FC<IInputProp> =
         <input
           type="text"
           className={css.input}
+          readOnly={readOnly}
           disabled={disabled}
           value={value}
           onChange={handleChange}

@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC } from "react";
+import { CSSProperties, FC } from "react";
 import cn from "classnames";
 
 import css from "./Preloader.module.scss";

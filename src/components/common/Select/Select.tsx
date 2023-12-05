@@ -14,9 +14,14 @@ export interface ISelectProps {
   onClose?: () => void;
 }
 
-export const Select: FC<ISelectProps> = ({ ...props }) => {
-  const { options, selected, onChange, onClose  } = props;
+export const Select: FC<ISelectProps> = ({
+  options,
+  selected,
+  onChange,
+  onClose,
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>("");
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -40,8 +45,16 @@ export const Select: FC<ISelectProps> = ({ ...props }) => {
     onChange?.(value);
   };
 
-  const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
+  const handleOpenButtonClick: MouseEventHandler<HTMLDivElement> = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleClearInputClick = () => {
+    setSearchValue("")
+  }
+
+  const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
   };
 
   return (
@@ -51,28 +64,44 @@ export const Select: FC<ISelectProps> = ({ ...props }) => {
       })}
       ref={rootRef}
     >
-      <div className={css.line}></div>
       <div
-        className={cn(css.placeholder, {
+        className={cn(css.openButton, {
           [css.open]: isOpen,
         })}
-        onClick={handlePlaceHolderClick}
+        onClick={handleOpenButtonClick}
         role="button"
         tabIndex={0}
+        title={selected?.ticker}
       >
-        <img src={selected?.image} alt={selected?.name}/>
+        <div className={css.line}></div>
+        <img src={selected?.image} alt={selected?.name} />
         <span>{selected?.ticker.toUpperCase()}</span>
-        <Icon name="arrow-down"/>
+        <Icon name="arrow-down" />
       </div>
       {isOpen && (
         <ul className={css.select}>
-          {options.map((option) => (
-            <Option
-              key={`currency-${option.ticker}`}
-              option={option}
-              onClick={handleOptionClick}
+          <div className={css.searchInputBlock}>
+            <input
+              type="text"
+              value={searchValue}
+              onChange={onChangeSearchInput}
+              className={css.input}
             />
-          ))}
+            <div className={css.clear} role="button" onClick={handleClearInputClick}>
+              <Icon name="clear" />
+            </div>
+          </div>
+          {options
+            .filter((v) =>
+              v.name.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((option) => (
+              <Option
+                key={`currency-${option.ticker}`}
+                option={option}
+                onClick={handleOptionClick}
+              />
+            ))}
         </ul>
       )}
     </div>

@@ -1,14 +1,16 @@
 import { useAppSelector } from "../../../hooks/useAppSelector";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Select } from "../Select";
 import { IOption } from "../../../types/IOption";
 import css from "./ExchangeInput.module.scss";
+import { Input } from "../Input";
 
 export interface IExchangeInputProps {
   inputValue: string;
   setInput: (v: string) => void;
   setCurrency: (v: string) => void;
   readonlyInput?: boolean;
+  currency: string;
 }
 
 export const ExchangeInput: FC<IExchangeInputProps> = ({
@@ -16,20 +18,14 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({
   setInput,
   setCurrency,
   readonlyInput = false,
+  currency,
 }) => {
-  const [value, setValue] = useState<string>("");
-
   const availableCurrencies = useAppSelector(
     (state) => state.exchange.availableCurrencies
   );
 
   const handleSelect = (option: string) => {
-    setValue(option);
     setCurrency(option);
-  };
-
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
   };
 
   const options: Array<IOption> = availableCurrencies.map((currency) => ({
@@ -38,7 +34,8 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({
     ticker: currency.ticker,
   }));
 
-  const selected = options.find((item) => item.ticker === value) || options[0];
+  const selected =
+    options.find((item) => item.ticker === currency) || options[0];
 
   const selectProps = {
     options,
@@ -48,13 +45,7 @@ export const ExchangeInput: FC<IExchangeInputProps> = ({
 
   return (
     <div className={css.component}>
-      <input
-        type="text"
-        readOnly={readonlyInput}
-        value={inputValue}
-        onChange={onChangeInput}
-        className={css.input}
-      />
+      <Input readOnly={readonlyInput} value={inputValue} onChangeValue={(v) => setInput(v)} />
       <div className={css.selectBlock}>
         <Select {...selectProps} />
       </div>

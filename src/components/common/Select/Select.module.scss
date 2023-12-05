@@ -2,35 +2,66 @@
   width: 150px;
   height: 48px;
   background: #f5f7f8;
+  display: flex;
+  justify-content: space-between;
 
   &.open {
     width: 442px;
     height: 52px;
   }
 
-.line {
-  position: absolute;
-  top: 25px;
-  width: 30px;
-  border-top: 1px solid #E3EBEF ;
-  transform: rotate(-90deg);
+  .searchInputBlock {
+     position: relative;
   }
 
-  .placeholder {
-    display: flex;
+  .input {
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    height: 50px;  
+    padding: 5px 15px;
+    font-weight: normal;
+    border-bottom: solid 1px #E3EBEF;
+    background-color: #F6F7F8;
+    transition: all 0.3s;
+    z-index: 1;
+  }
+
+  .clear{
+    z-index: 2;
+    position: absolute;
+    top: 17px;
+    right: 16px;
+    cursor: pointer;
+  }
+
+  .openButton {
+    display: grid;
+    grid-template-columns: 24px 20px minmax(20px, 1fr) 25px;
+    grid-template-rows: auto;
+    align-items: center;
+    width: 100%;
     width: 100%;
     height: 100%;
-    align-items: center;
-    justify-content: center;
+    font-size: 14px;
+    overflow: auto;
     gap: 12px;
     background: #f5f7f8;
     border-radius: 5px;
     cursor: pointer;
+    overflow: hidden;
 
-    > svg {
-      margin-left: 18px;
+    .line {
+      width: 30px;
+      border-top: 1px solid #e3ebef;
+      transform: rotate(-90deg);
     }
-   
+
+    > span {
+      text-overflow: ellipsis;
+      overflow: hidden; 
+    }
+
     &.open {
       display: none;
     }
@@ -54,10 +85,10 @@
       align-items: center;
       height: 48px;
       gap: 16px;
-      &:hover{
-          cursor: pointer;
-          background: #ebf1f7;
+      &:hover {
+        cursor: pointer;
+        background: #ebf1f7;
       }
-  }
+    }
   }
 }

@@ -23,6 +23,8 @@ export const MainPage: FC = () => {
     setIsShowError,
     amountForExchange,
     amountResult,
+    currencyFrom,
+    currencyTo,
     isShowError,
     error,
     isLoading,
@@ -46,6 +48,7 @@ export const MainPage: FC = () => {
           setInput={setAmountForExchange}
           inputValue={amountForExchange}
           setCurrency={setCurrencyFrom}
+          currency={currencyFrom}
         />
         {isLoading ? (
           <Preloader />
@@ -56,6 +59,10 @@ export const MainPage: FC = () => {
           setInput={setAmountResult}
           inputValue={amountResult}
           setCurrency={setCurrencyTo}
+          currency={currencyTo}
+          /*насколько я понял из ТЗ правый инпут не доступен для редактирования
+            юзером, поэтому делаю его только для чтения
+          */
           readonlyInput
         />
       </div>

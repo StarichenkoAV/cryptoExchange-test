@@ -24,6 +24,7 @@ export const Option: FC<IOptionProps> = (props) => {
       value={ticker}
       onClick={handleClick(ticker)}
       tabIndex={0}
+      title={name}
     >
         <img src={image} alt={name}/>
         <span>{ticker.toUpperCase()}</span>
