@@ -73,7 +73,7 @@ export const MainPage: FC = () => {
           onChangeValue={(v) => setEthAddress(v)}
         />
         <div className={css.buttonBlock}>
-          <Button onClick={(v) => setEthAddress("")}>EXCANGE</Button>
+          <Button onClick={(v) => setEthAddress("")}>EXCHANGE</Button>
           {isShowError && <div className={css.error}>{error}</div>}
         </div>
       </div>
