@@ -50,8 +50,8 @@ export const Select: FC<ISelectProps> = ({
   };
 
   const handleClearInputClick = () => {
-    setSearchValue("")
-  }
+    setSearchValue("");
+  };
 
   const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -87,7 +87,11 @@ export const Select: FC<ISelectProps> = ({
               onChange={onChangeSearchInput}
               className={css.input}
             />
-            <div className={css.clear} role="button" onClick={handleClearInputClick}>
+            <div
+              className={css.clear}
+              role="button"
+              onClick={handleClearInputClick}
+            >
               <Icon name="clear" />
             </div>
           </div>
