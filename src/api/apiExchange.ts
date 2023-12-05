@@ -30,7 +30,7 @@ export const getMinimalExchangeAmount = async (currencies: string) => {
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    console.error(data.message)
   }
   return data.minAmount;
 };
@@ -50,7 +50,7 @@ export const getEstimatedExchangeAmount = async (
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    console.error(data.message)
   }
   return data.estimatedAmount;
 };
